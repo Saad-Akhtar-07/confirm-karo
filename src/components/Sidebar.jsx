@@ -1,13 +1,13 @@
-import { Activity, Boxes, LayoutDashboard, MessageCircleMore, Settings2, ShoppingBag, Workflow, X } from 'lucide-react'
+import { Activity, Boxes, LayoutDashboard, MessageCircleMore, ShoppingBag, Workflow, X } from 'lucide-react'
 
 const navItems = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
-  { id: 'orders', label: 'Orders', icon: ShoppingBag, count: 8 },
+  { id: 'orders', label: 'Orders', icon: ShoppingBag },
   { id: 'automations', label: 'Automations', icon: Workflow },
   { id: 'activity', label: 'Activity log', icon: Activity },
 ]
 
-export function Sidebar({ page, setPage, open, onClose }) {
+export function Sidebar({ page, setPage, open, onClose, orderCount, environment }) {
   return (
     <aside className={`sidebar ${open ? 'sidebar-open' : ''}`}>
       <div className="brand-row">
@@ -20,24 +20,23 @@ export function Sidebar({ page, setPage, open, onClose }) {
 
       <div className="workspace-card">
         <span className="workspace-icon"><Boxes size={17} /></span>
-        <span><small>Workspace</small><strong>Demo Store PK</strong></span>
+        <span><small>Workspace</small><strong>ConfirmKaro Demo</strong></span>
         <span className="workspace-chevron">⌄</span>
       </div>
 
       <nav className="primary-nav" aria-label="Main navigation">
         <span className="nav-label">Operations</span>
-        {navItems.map(({ id, label, icon: Icon, count }) => (
+        {navItems.map(({ id, label, icon: Icon }) => (
           <button key={id} className={page === id ? 'nav-item active' : 'nav-item'} onClick={() => { setPage(id); onClose() }}>
             <Icon size={18} strokeWidth={1.9} />
             <span>{label}</span>
-            {count ? <em>{count}</em> : null}
+            {id === 'orders' ? <em>{orderCount}</em> : null}
           </button>
         ))}
       </nav>
 
       <div className="sidebar-footer">
-        <button className="nav-item"><Settings2 size={18} /><span>Settings</span></button>
-        <div className="system-state"><span className="pulse-dot" /><span><strong>Demo mode</strong><small>Fastn slots ready</small></span></div>
+        <div className="system-state"><span className="pulse-dot live" /><span><strong>Fastn connected</strong><small>{environment} environment · 3 active</small></span></div>
       </div>
     </aside>
   )

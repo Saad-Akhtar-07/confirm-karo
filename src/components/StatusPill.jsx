@@ -4,6 +4,7 @@ const labels = {
   CANCELLED: 'Cancelled',
   REMINDED: 'Reminder sent',
   UNVERIFIED: 'Needs review',
+  EXPIRED: 'Cutoff reached',
 }
 
 export function StatusPill({ status }) {

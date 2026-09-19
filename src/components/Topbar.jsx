@@ -1,6 +1,7 @@
-import { Bell, CalendarDays, Menu, Search } from 'lucide-react'
+import { CalendarDays, Menu, RefreshCw, Search } from 'lucide-react'
 
-export function Topbar({ title, subtitle, onMenu, onSearch }) {
+export function Topbar({ title, subtitle, onMenu, onSearch, onRefresh, loading, updatedAt }) {
+  const updated = new Intl.DateTimeFormat('en-PK', { hour: 'numeric', minute: '2-digit', day: 'numeric', month: 'short' }).format(new Date(updatedAt))
   return (
     <header className="topbar">
       <div className="title-group">
@@ -13,9 +14,9 @@ export function Topbar({ title, subtitle, onMenu, onSearch }) {
           <input aria-label="Search orders" placeholder="Search orders" onChange={(event) => onSearch(event.target.value)} />
           <kbd>⌘ K</kbd>
         </label>
-        <button className="date-button"><CalendarDays size={16} /><span>Today, 19 Sep</span></button>
-        <button className="icon-button notification-button" aria-label="Notifications"><Bell size={18} /><span /></button>
-        <button className="avatar-button" aria-label="Account menu">MS</button>
+        <span className="date-button"><CalendarDays size={16} /><span>Updated {updated}</span></span>
+        <button className="icon-button" onClick={onRefresh} disabled={loading} aria-label="Refresh dashboard"><RefreshCw size={17} className={loading ? 'spin' : ''} /></button>
+        <span className="avatar-button" aria-label="Signed in as Muhammad Saad">MS</span>
       </div>
     </header>
   )
